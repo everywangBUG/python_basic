@@ -34,3 +34,19 @@
     tests.py # 单元测试
     views.py # 业务逻辑函数
 ​```
+```
+
+## 第一次请求
+1. 匹配路由，路由分发器查找用户的url对应关系
+   1. 找到业务函数，调用
+   2. 找不到，报404
+2. 返回数据给浏览器
+
+### django中的第一次请求
+* ![](/07_web框架Django/assets/第一次请求.png)
+
+### 启动web服务器
+1. 编写路由
+2. 在view.py中写业务函数
+3. 通过HttpResponse方法返回数据给前端，HttpResponse是django中把响应头等内容封装的函数
+4. 在mysite目录下执行命令`python manage.py runserver`，启动服务
