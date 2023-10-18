@@ -50,3 +50,7 @@
 2. 在view.py中写业务函数
 3. 通过HttpResponse方法返回数据给前端，HttpResponse是django中把响应头等内容封装的函数
 4. 在mysite目录下执行命令`python manage.py runserver`，启动服务
+   
+## 模板配置
+1. 配置setting.py，django找到模板的html的template文件
+2. 调用render函数
