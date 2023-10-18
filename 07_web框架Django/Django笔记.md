@@ -19,3 +19,18 @@
 ### 使用django创建一个web项目
 * `django-admin startproject mysite`
 * ![](./assets/django架构解释图.png)
+
+### 使用django创建一个app
+* `python manage.py startapp app01` 
+* 一个项目中可以有多个app，每个app的功能都不同，例如支付宝、微信、淘宝等业务代码
+```python
+  polls/
+    __init__.py # 包
+    admin.py # 数据库后台
+    apps.py # 把项目和app关联起来的文件
+    migrations/ # 数据库相关
+        __init__.py
+    models.py # 数据库操作地方
+    tests.py # 单元测试
+    views.py # 业务逻辑函数
+​```
