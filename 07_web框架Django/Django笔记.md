@@ -43,7 +43,7 @@
 2. 返回数据给浏览器
 
 ### django中的第一次请求
-* ![](/07_web框架Django/assets/第一次请求.png)
+* ![](./assets/第一次请求.png)
 
 ### 启动web服务器
 1. 编写路由
@@ -54,3 +54,14 @@
 ## 模板配置
 1. 配置setting.py，django找到模板的html的template文件
 2. 调用render函数
+
+## MVC/MTV
+* MVC
+  * VIEWS: 业务逻辑处理和数据展示
+  * ![](./assets/MVC.png)
+* MTV
+  * VIEWS: 业务逻辑处理
+  * TEMPLATE: 数据展示
+  * ![](./assets/MVCvsMTV.png)
+* django中的数据请求流程
+  * ![](./assets/django请求流程.png)
