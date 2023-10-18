@@ -15,3 +15,7 @@
 3. 根据url的不同执行不同的函数，即：路由系统
 4. 使用函数式编程处理业务逻辑
 5. 图片、css、js文件统一称为静态文件，需要读取内容直接返回给客户端
+
+### 使用django创建一个web项目
+* `django-admin startproject mysite`
+* ![](./assets/django架构解释图.png)
