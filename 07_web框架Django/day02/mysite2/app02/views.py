@@ -10,6 +10,9 @@ def special_case_2003(request):
 def year_archive(request, year = 2023):
     return HttpResponse('articles %s' %(year))
 
+def year_archive_uuid(request, uuid):
+    return HttpResponse('articles %s' %(uuid))
+
 def month_archive(request, year = 2023, month = 1):
     return HttpResponse('articles %s-%s' %(year, month))
 
