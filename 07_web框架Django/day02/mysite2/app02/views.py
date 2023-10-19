@@ -7,8 +7,8 @@ def special_case_2003(request):
     print(dir(request))
     return HttpResponse('articles')
 
-def year_archive(request, year = 2023):
-    return HttpResponse('articles %s' %(year))
+def year_archive(request, year = 2023, version = "v1.0.0"):
+    return HttpResponse('articles %s 第二个参数版本号: %s' %(year, version))
 
 def year_archive_uuid(request, uuid):
     return HttpResponse('articles %s' %(uuid))
