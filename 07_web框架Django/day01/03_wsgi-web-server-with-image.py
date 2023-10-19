@@ -34,20 +34,6 @@ def profile(environ, response):
 def error(environ, response):
     handle_htmlres(response)
     return [bytes("<h2>页面找不到了!_!</h2>", encoding="utf-8")]
-    """css请求处理
-    Args:
-        request_url (string): 客户端请求的路径
-    Returns:
-        list: css内容，1代表有js内容，0代表没有css内容
-    """
-    css_path = re.sub("/static", "/static_data", request_url)
-    print(css_path)
-    css_abs_path = BASE_DIRPATH + css_path
-    if os.path.isfile(css_abs_path): # 不能判断相对路径，只能判断觉绝对路径
-        f = open(css_abs_path, "rb")
-        data = f.read()
-        return [data, 1]
-    return [None, 0]
 
 def replace_path_readb(request_url):
     """静态资源请求处理
@@ -58,7 +44,7 @@ def replace_path_readb(request_url):
     """
     path = re.sub("/static", "/static_data", request_url)
     abs_path = BASE_DIRPATH + path
-    if os.path.isfile(abs_path): # 不能判断相对路径，只能判断觉绝对路径
+    if os.path.isfile(abs_path): # 不能判断相对路径，只能判断绝对路径
         f = open(abs_path, "rb")
         data = f.read()
         return [data, 1]

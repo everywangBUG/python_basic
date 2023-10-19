@@ -22,7 +22,7 @@
 
 ### 使用django创建一个app
 * `python manage.py startapp app01` 
-* 一个项目中可以有多个app，每个app的功能都不同，例如支付宝、微信、淘宝等业务代码
+* 一个项目中可以有多个app，每个app的功能都不同，例如支付宝里面的支付模块-小程序模块等、微信里面的聊天模块-支付模块、淘宝中的支付模块-视频模块等业务代码
 ```python
   polls/
     __init__.py # 包
@@ -65,3 +65,27 @@
   * ![](./assets/MVCvsMTV.png)
 * django中的数据请求流程
   * ![](./assets/django请求流程.png)
+
+## 路由系统详解
+### 两种路由形式
+#### 静态路由
+  * 逐个匹配所有字符`path("articles/2003/", views.special_case_2003)` 
+#### 动态路由
+  ##### URLconf
+    ```python
+        urlpatterns = [
+            path("articles/2003/", views.special_case_2003),
+            path("articles/<int:year>/", views.year_archive),
+            path("articles/<int:year>/<int:month>/", views.month_archive),
+            path("articles/<int:year>/<int:month>/<slug:slug>/", views.article_detail),
+        ]
+    ```
+  ##### regular expressions
+    ```python
+      urlpatterns = [
+        path("articles/2003/", views.special_case_2003),
+        re_path(r"^articles/(?P<year>[0-9]{4})/$", views.year_archive),
+        re_path(r"^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$", views.month_archive),
+        re_path(r"^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<slug>[\w-]+)/$", views.article_detail)
+      ]
+    ```
