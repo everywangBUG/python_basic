@@ -89,3 +89,7 @@
         re_path(r"^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<slug>[\w-]+)/$", views.article_detail)
       ]
     ```
+
+### 路由的分发
+* mysites2下的urls使用include分发到app02中
+* 在客户端使用`http://127.0.0.1:8000/app02/articles/2005/`访问，实现路由的分发
