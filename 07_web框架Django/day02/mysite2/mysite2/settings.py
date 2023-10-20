@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import pymysql
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app02' # 表结构发生变化，自动同步到数据库
 ]
 
 MIDDLEWARE = [
@@ -75,11 +78,17 @@ WSGI_APPLICATION = 'mysite2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog', # 填写数据库名字
+        'USER': 'root', # 填写连接用户名
+        'PASSWORD': '654321', # 填写连接密码
+        'HOST': 'localhost', # 如果没有联网，使用127.0.0.1
+        'PORT': 3306, # 端口号
     }
 }
 
+pymysql.version_info = (1, 4, 6, "final", 0)
+pymysql.install_as_MySQLdb()
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -150,3 +150,22 @@
     
     OneToOneField # A field that defines a relational mapping with another _mapping_ model
 ```
+
+### 连接mySql
+* 安装`python -m pip install pymysql`，替换掉python自带的mysqlDB模块
+* 在mysite2文件下的__init__.py中，导入pymysql模块
+* 修改settings.py中的DATABASES
+
+#### django数据库同步工具
+* `migration`，生成同步文件，`python manage.py makemigrations`
+* 同步文件，`python manage.py migrate`，同步后在app02的mogrations这个文件夹下面
+* 在setting中，INSTALLED_APPS中加入创建的app名称
+
+#### 报错解决
+1. mysql远程连接设置问题
+   * `django.db.utils.OperationalError: (1044, "Access denied for user ''@'localhost' to database 'blog'")`原因是mysql没  有设置远程连接
+   *  `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;`
+2. django版本和mysql版本不匹配问题
+   * 重新安装django版本2.1
+
+### 增删改查
