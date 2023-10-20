@@ -16,7 +16,7 @@ extra_urls = [
     
     # 正则匹配
     path("2003/", views.special_case_2003),
-    # 可以传第二个参数，没有用法没有体现
+    # 可以传第二个参数，用的少
     re_path(r"^(?P<year>[0-9]{4})/$", views.year_archive, { "version": "v1.0.0"}),
     re_path(r"^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$", views.month_archive),
     re_path(r"^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<slug>[\w-]+)/$", views.article_detail)

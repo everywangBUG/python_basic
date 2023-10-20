@@ -92,4 +92,61 @@
 
 ### 路由的分发
 * mysites2下的urls使用include分发到app02中
-* 在客户端使用`http://127.0.0.1:8000/app02/articles/2005/`访问，实现路由的分发
+* 分发到app02后在客户端使用`http://127.0.0.1:8000/app02/articles/2005/`访问，实现路由的分发
+
+## 在view中操作数据库
+### 自己写sql的问题
+1. sql注入
+2. 如果使用mySql数据库写了10万行代码，中途如果需要换Oracle数据库，那么因为有些sql语句的不同，修改10万行代码几乎不可能
+3. 开发人员原生sql水平不一，导致性能问题
+4. 开发效率低
+
+### ORM对象关系映射
+![](./assets/Orm对象关系模型映射.png)
+
+#### 优点
+1. 实现代码与数据库的解耦，即使中途更换数据库，无需修改面向对象的代码
+2. 不需要自己写原生sql，提高开发效率
+3. 防止SQL注入
+
+#### 缺点
+1. 牺牲性能
+2. 语句太复杂
+
+#### Django ORM字段
+##### 字段类型1
+``` python
+    AutoField # An IntergerField that autonatically increamts according to available
+    BigAutoField # A 64-bits integer, guaranteed to fit numbers from 1 t0 9223372036854775807
+    BigIntegerField # -92233720368547808 to 9223372036854775807
+    BooleanField # True or False
+    CharField # A string field
+    DateField # e.g . 2017-01-01
+    DateTimeField # e.g. 2017-01-01 12:00:00
+    DecimalField # A fixed-point number, 整数部分最多10位，小数点后最多2位
+    DurationField # A field for storing a duration, storing periods of time, e.g [DD] [HH:[MM:]ss[.uuuuuu]]
+    EmailField # A CharField that checks that the value is a valid email address
+    FileField # A FileField that validates that the uploaded file is a valid
+    FloatField # A floating point number
+    ImageField # A FileField that validates that the uploaded file is a valid image
+    IntegerField # A signed 32 bits integer
+    GenericIPAddressField # An IP address that can be either an IPv4 or IPv6 address
+    NullBooleanField # True, False or None
+    PositiveIntegerField # A signed 32 bits integer that cannot be less than 0
+    PositiveSmallIntegerField # A signed 18 bits integer that cannot be less than 0
+    SlugField # A CharField that validates that the value contains only letters, numbers, underscores or hyphens
+    SmallIntegerField # A signed 18 bits integer
+    TextField # A CharField that validates that the length of the value is less than 255
+    TimeField # A field that accepts time values (in Python datetime.time format)
+    URLField # A CharField that accepts URL values
+    UUIDField # A CharField that accepts UUID values
+```
+
+##### 字段类型2
+``` python
+    Relationship field # A field that defines a relational mapping
+    ForeigKey # A field on an _other_ model that refers to another model
+    ManyToManyField # A field that defines a relational mapping with another _mapping_ model
+    
+    OneToOneField # A field that defines a relational mapping with another _mapping_ model
+```

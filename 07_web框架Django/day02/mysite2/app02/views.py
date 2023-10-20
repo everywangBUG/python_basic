@@ -2,7 +2,6 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 
-# URLconf匹配路由
 def special_case_2003(request):
     print(dir(request))
     return HttpResponse('articles')
