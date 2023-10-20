@@ -164,8 +164,58 @@
 #### 报错解决
 1. mysql远程连接设置问题
    * `django.db.utils.OperationalError: (1044, "Access denied for user ''@'localhost' to database 'blog'")`原因是mysql没  有设置远程连接
-   *  `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;`
+   *  `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;`设置远程连接
 2. django版本和mysql版本不匹配问题
    * 重新安装django版本2.1
 
 ### 增删改查
+#### 先使用命令行操作数据库
+* `python manage.py shell`，必须使用这行命令，直接使用python无法加载当前django下的环境变量，会报错
+#### 增
+1. 使用命令行增加一条数据：
+``` python
+models.Account.objects.create(
+    username = 'jack',
+    email = 'jack@qq.com',
+    password = '123456'
+    ,
+    )
+```
+2. 先准备好数据，再手动触发提交
+``` python
+s = models.Account(        
+    username = 'zhangsan',      
+    email = 'zhangsan@163.com', 
+    password = 'abc',           
+    signature = 'zhangsan love Judy'
+  )
+s.save() # 把数据加入到数据库中
+```
+3. 跨表创建数据
+  * 使用外键创建
+  ``` python
+  s = models.Article(
+    title = '张艺谋表示很震惊',
+    content = '在片场，今天张艺谋被张国立的演技震惊了',
+    pub_date = '2023-10-20'
+  )
+  s.account_id = 1
+  s.save()
+  ```
+  * 使用多对多对象创建
+  ```python
+  a1 = models.Account(
+    username = 'lisi',
+    password = '123456',
+    email = 'lisi@qq.com'
+  )
+  a1.save()
+  s = models.Article(
+    title = 'test',
+    content = 'hahaha',
+    pub_date = '2023-10-20'
+  )
+  # 把a1直接赋给文章中的作者
+  s.account = a1
+  s.save()
+  ```
