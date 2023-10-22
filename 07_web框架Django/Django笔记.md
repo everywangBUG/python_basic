@@ -290,3 +290,19 @@ s.save() # 把数据加入到数据库中
 
 #### 练习
 ![](./assets/增删改查练习.png)
+
+#### __str__方法
+* 显示表中的具体名称
+* 重新加载变量`python manage.py shell`并引用
+* `<QuerySet [<Account: jack>, <Account: zhangsan>, <Account: lisi>, <Account: wangwu>, <Account: zhaoliu>]>`
+* `<QuerySet [<Article: 张艺谋表示很震惊-jack>, <Article: test-lisi>]>`
+
+#### orm对象操作总结，外键关联操作
+1. 单个对象操作
+   * `a = models.Article.objects.all()[0]`
+2. 外键关联操作
+   * 拿到account对象 `a = models.Article.objects.all()[0]`, `a.account.username = '李谷一'`, 直接修改对象中的内容
+3. 外键关联反向操作
+   * 通过account查询发布了多少文章 `account_obj = models.Account.objects.all()[0]` `account_obj.article_set.all()` 等价于` account_obj.article_set.select_related()`, 反向操作把李谷一写了多少文章查询了出来， `article_set`这个字段是orm自动生成的，`article_set`是外键关联的表名
+4. 多对多操作
+   * 查询标签对应的文章 `tag_obj = models.Tag.objects.all()[0]` `tag_obj.article_set.all()` 等价于 `tag_obj.article_set.select_related()`
