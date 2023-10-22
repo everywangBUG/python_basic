@@ -171,7 +171,7 @@
 ### 增删改查
 #### 先使用命令行操作数据库
 * `python manage.py shell`，必须使用这行命令，直接使用python无法加载当前django下的环境变量，会报错
-* `from app02 import models`，导入app02下的models
+* `from app02 import models`，导入app02下的models，不导入无法使用该变量
 #### 增
 1. 使用命令行增加一条数据：
 ``` python
@@ -262,3 +262,16 @@ s.save() # 把数据加入到数据库中
    * 查询用户名中已z和l开头的数据 `models.Account.objects.filter(username__regex=r'^(z|l)')` r表示转义，大小写敏感，iregex表示大小写敏感  ``models.Account.objects.filter(username__iregex=r'^(Z|L)')`
 14. isnull
    * 查询用户名为空的 `models.Account.objects.filter(username__isnull=True)`
+15. order_by
+   * 查询用户名倒序 `models.Account.objects.order_by('-username')`
+   * 按日期升序 `a.values('id', 'register_date').order_by('register_date')`
+16. reverse反转，如果想用reverse，必须先使用order_by排序好
+   * `a.values('id', 'register_date').order_by('register_date').reverse`
+
+#### 获取对象中的数据
+* a = `a = models.Account.objects.all()`, 查询所有数据中的password `a.values('password')`
+
+#### 精确查找
+* `models.Account.objects.get(username='zhangsan')` 精确查询一条已经存在且不重复的数据
+* `models.Account.objects.all()` 返回所有的数据
+* exclued: 排除符合条件的数据，不符合条件的返回
