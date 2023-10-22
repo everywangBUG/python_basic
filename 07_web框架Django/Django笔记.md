@@ -258,3 +258,7 @@ s.save() # 把数据加入到数据库中
    * 查询每小时12分数据 `models.Account.objects.filter(register_date__minute=12)`
 12. second
    * 查询每分钟第12秒的数据 `models.Account.objects.filter(register_date__second=12)`
+13. regex
+   * 查询用户名中已z和l开头的数据 `models.Account.objects.filter(username__regex=r'^(z|l)')` r表示转义，大小写敏感，iregex表示大小写敏感  ``models.Account.objects.filter(username__iregex=r'^(Z|L)')`
+14. isnull
+   * 查询用户名为空的 `models.Account.objects.filter(username__isnull=True)`
