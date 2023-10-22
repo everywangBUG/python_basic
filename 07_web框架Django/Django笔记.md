@@ -275,3 +275,18 @@ s.save() # 把数据加入到数据库中
 * `models.Account.objects.get(username='zhangsan')` 精确查询一条已经存在且不重复的数据
 * `models.Account.objects.all()` 返回所有的数据
 * exclued: 排除符合条件的数据，不符合条件的返回
+
+#### 删改
+* 删除一条数据 `models.Account.objects.get(username='zhangsan').delete()` 删除所有符合条件数据
+* 单条修改 `models.Account.objects.filter(username='zhangsan').update(password='123456')` 更新
+
+#### 聚合搜索
+* 查询总条数 `models.Account.objects.all().count()`
+* 查询最大值 `models.Account.objects.all().aggregate(Max('age'))`
+* 查询最小值 `models.Account.objects.all().aggregate(Min('age'))`
+* 查询平均值 `models.Account.objects.all().aggregate(Avg('age'))`
+* 查询总和 `models.Account.objects.all().aggregate(Sum('age'))`
+* 查询最大值和最小值 `models.Account.objects.all().aggregate(Max('age'), Min('age'))`
+
+#### 练习
+![](./assets/增删改查练习.png)
