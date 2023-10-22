@@ -171,6 +171,7 @@
 ### 增删改查
 #### 先使用命令行操作数据库
 * `python manage.py shell`，必须使用这行命令，直接使用python无法加载当前django下的环境变量，会报错
+* `from app02 import models`，导入app02下的models
 #### 增
 1. 使用命令行增加一条数据：
 ``` python
@@ -219,3 +220,41 @@ s.save() # 把数据加入到数据库中
   s.account = a1
   s.save()
   ```
+
+###### 通过orm语句实现多对多关联
+1. create a object
+2. 通过创建成功的对象添加多对多关联
+
+#### 查询
+1. 查询id等于1的所有数据 `select * from app02_account where id = 1` 等价于orm中的 `modles.Account.objects.filter(id=1)`
+2. 查询id大于1的所有数据 `select * from app02_account where id > 1 and passwors = '123456'` 等价于orm中的 `models.Account.objects.filter(id__gt = 1, password = '123456')`, gt表示大于, gte表示大于等于, lt表示小于, lte表示小于等于, 还可以使用`between and`
+3. 把邮箱中的z字母开头的邮箱查找出来`select * from app02_account where like "z%"` 等价于orm中的 `models.Account.objects.filter(email__startswith='z')`， startswith表示以什么开头，endswith表示以什么结尾，contains表示包含
+
+##### 查询的orm过滤条件语句
+1. filter
+   * 查询username包含'a'的所有数据`select * from app02_account where username like "%a%"` 等价于 `models.Account.objects.filter(username__contains='a')`，mysql原生写法不区分大小写，而orm语句默认区分大小写，
+`models.Account.objects.filter(username__icontains='a')` 这里加i表示大小写不敏感
+2. in
+   * 查询id在(1, 2, 3)中所有的数据`select * from app02_account where id in (1, 2, 3)` 等价于 `models.Account.objects.filter(id__in = (1, 2, 3))`
+3. range查询时间、数据、日期
+   * 在setting中修改时间为东八区的上海时间
+   * 查询`t1 = datetime.date(2023, 10, 19) t2 = datetime.date(2023, 10, 25)` 这个时间段的数据(不包含2023-10-25) ` models.Account.objects.filter(register_date__range=[t1, t2])`， select原生语句`select ... where register_date between '2023-10-9' and '2023-10-25';`
+   * 查询id在2-10之间的数据 `models.Account.objects.filter(id__range=[2, 10])`
+4. date
+   * 查询注册日期为2023-10-20的数据 `models.Account.objects.filter(register_date__date='2023-10-20')`
+5. year
+  * 查询2023年的数据 `models.Account.objects.filter(register_date__year=2023)`
+6. month
+   * 查询每年10月的数据 `models.Account.objects.filter(register_date__month=10)`
+7. week_day
+   * 查询每周一的数据 `models.Account.objects.filter(register_date__week_day=1)`
+8. week
+   * 查询2023年10月20日所在周的数据 `models.Account.objects.filter(register_date__week='2023-10-20')`
+9.  day
+   * 查询每月20日的数据 `models.Account.objects.filter(register_date__day=20)`
+10. hour 
+   * 查询每天12点数据 `models.Account.objects.filter(register_date__hour=12)`
+11. minute
+   * 查询每小时12分数据 `models.Account.objects.filter(register_date__minute=12)`
+12. second
+   * 查询每分钟第12秒的数据 `models.Account.objects.filter(register_date__second=12)`
