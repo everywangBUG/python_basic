@@ -147,7 +147,6 @@
     Relationship field # A field that defines a relational mapping
     ForeigKey # A field on an _other_ model that refers to another model
     ManyToManyField # A field that defines a relational mapping with another _mapping_ model
-    
     OneToOneField # A field that defines a relational mapping with another _mapping_ model
 ```
 
@@ -203,6 +202,7 @@ s.save() # 把数据加入到数据库中
   s.account_id = 1
   s.save()
   ```
+
   * 使用多对多对象创建
   ```python
   a1 = models.Account(
@@ -224,6 +224,7 @@ s.save() # 把数据加入到数据库中
 ###### 通过orm语句实现多对多关联
 1. create a object
 2. 通过创建成功的对象添加多对多关联
+3. 通过`a1 = models.Article.objects.all()[0]`获取第一个对象，然后通过过`a1.tags.set([1,2,3])`添加关联到tag第三张表中
 
 #### 查询
 1. 查询id等于1的所有数据 `select * from app02_account where id = 1` 等价于orm中的 `modles.Account.objects.filter(id=1)`
@@ -290,6 +291,8 @@ s.save() # 把数据加入到数据库中
 
 #### 练习
 ![](./assets/增删改查练习.png)
+1. 创建五条account和五条新tag记录
+2. 创建五条article记录，关联上面不同的用户和tag
 
 #### __str__方法
 * 显示表中的具体名称
@@ -306,3 +309,5 @@ s.save() # 把数据加入到数据库中
    * 通过account查询发布了多少文章 `account_obj = models.Account.objects.all()[0]` `account_obj.article_set.all()` 等价于` account_obj.article_set.select_related()`, 反向操作把李谷一写了多少文章查询了出来， `article_set`这个字段是orm自动生成的，`article_set`是外键关联的表名
 4. 多对多操作
    * 查询标签对应的文章 `tag_obj = models.Tag.objects.all()[0]` `tag_obj.article_set.all()` 等价于 `tag_obj.article_set.select_related()`
+
+## Django Admin模块
