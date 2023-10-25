@@ -311,3 +311,15 @@ s.save() # 把数据加入到数据库中
    * 查询标签对应的文章 `tag_obj = models.Tag.objects.all()[0]` `tag_obj.article_set.all()` 等价于 `tag_obj.article_set.select_related()`
 
 ## Django Admin模块
+### 创建admin模块
+* `from django.contrib import admin`, 引入admin模块，加入urls中
+* 创建用户和密码
+  * `python manage.py createsuperuser`
+  * `Username: admin`
+  * `Email address: admin@example.com`
+  * `Password: 123456`
+  * `Password (again): 123456`
+* 启动服务器
+  * `python manage.py runserver`
+
+### 定制admin模块
