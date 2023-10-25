@@ -22,7 +22,7 @@ class Article(models.Model):
     title = models.CharField(verbose_name='标题', max_length=255, unique=True)
     content = models.TextField(verbose_name='内容')
     account = models.ForeignKey(verbose_name='作者', to='Account', on_delete=models.CASCADE) # 当用户删除时，他的文章放在哪
-    tags = models.ManyToManyField(verbose_name='标签', to='Tag', null=True) # 文章和标签是多对多的关系
+    tags = models.ManyToManyField(verbose_name='标签', to='Tag', null=True, blank=True) # 文章和标签是多对多的关系
     pub_date = models.DateTimeField(verbose_name='发布时间')
 
     def __str__(self) -> str:
